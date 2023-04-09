@@ -67,7 +67,7 @@ public class QuizData {
 
                 while( cursor.moveToNext() ) {
 
-                    if( cursor.getColumnCount() >= 5) {
+                    if( cursor.getColumnCount() >= 3) {
 
                         // get all attribute values of this quiz
                         columnIndex = cursor.getColumnIndex( QuizDBHelper.QUIZZES_COLUMN_ID );
@@ -75,7 +75,7 @@ public class QuizData {
                         columnIndex = cursor.getColumnIndex( QuizDBHelper.QUIZZES_COLUMN_DATE );
                         String date = cursor.getString( columnIndex );
                         columnIndex = cursor.getColumnIndex( QuizDBHelper.QUIZZES_COLUMN_RESULT );
-                        String result = cursor.getString( columnIndex );
+                        int result = Integer.parseInt(String.valueOf(cursor.getString( columnIndex ).charAt(0)));
 
                         // create a new Quiz object and set its state to the retrieved values
                         Quiz quiz = new Quiz( date, result );
@@ -113,7 +113,7 @@ public class QuizData {
         // by storing it as a new row in the database table representing quizzes.
         ContentValues values = new ContentValues();
         values.put( QuizDBHelper.QUIZZES_COLUMN_DATE, quiz.getDate());
-        values.put( QuizDBHelper.QUIZZES_COLUMN_RESULT, quiz.getResult() );
+        values.put( QuizDBHelper.QUIZZES_COLUMN_RESULT, "" + quiz.getResult() + "/6" );
 
 
         // Insert the new row into the database table;

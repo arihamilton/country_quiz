@@ -88,16 +88,17 @@ public class CountryDBHelper extends SQLiteOpenHelper {
 
                 for (int i = 0; i < nextRow.length; i++) {
 
-                    if (i % 2 == 0) {
-                        values.put(CountryDBHelper.COUNTRYCONTINENTS_COLUMN_COUNTRY, nextRow[i]);
-                    }
-                    else {
-                        values.put(CountryDBHelper.COUNTRYCONTINENTS_COLUMN_CONTINENT, nextRow[i]);
-                    }
+                    values = new ContentValues();
 
+                    values.put(CountryDBHelper.COUNTRYCONTINENTS_COLUMN_COUNTRY, nextRow[i]);
+                    i++;
+                    values.put(CountryDBHelper.COUNTRYCONTINENTS_COLUMN_CONTINENT, nextRow[i]);
+
+//                  Log.d( "CountryDBHelper", "populateDatabase: " + nextRow[i] );
+
+                    db.insert( CountryDBHelper.TABLE_COUNTRYCONTINENTS, null, values );
                 }
             }
-            db.insert( CountryDBHelper.TABLE_COUNTRYCONTINENTS, null, values );
             in_s.close();
         }
         catch (Exception e) {
